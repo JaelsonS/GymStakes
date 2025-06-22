@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymStakes | Desafios Fitness com Recompensas</title>
+    <title>GymStackes | Desafios Fitness com Recompensas</title>
     <meta name="description" content="Plataforma de desafios fitness onde você compete com amigos e ganha recompensas por manter a consistência nos treinos">
     
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
@@ -18,23 +20,26 @@
     
     <style>
         :root {
-            --primary: #2E7D32;
-            --primary-dark: #1B5E20;
-            --secondary: #FFC107;
-            --dark: #212529;
+            --primary: #E74C3C; /* Laranja avermelhado */
+            --primary-dark: #C0392B;
+            --secondary: #F39C12;
+            --dark: #1A1A1A; /* Preto quase sólido */
             --light: #f8f9fa;
-            --accent: #E53935;
+            --accent: #E74C3C;
+            --text-light: #ECF0F1;
         }
         
         body {
             font-family: 'Open Sans', sans-serif;
-            color: var(--dark);
+            color: var(--text-light);
             overflow-x: hidden;
+            background-color: var(--dark);
         }
         
         h1, h2, h3, h4, h5, .navbar-brand {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
+            color: var(--text-light);
         }
         
         .hero-section {
@@ -57,7 +62,7 @@
             height: auto;
             z-index: -1;
             object-fit: cover;
-            opacity: 0.7;
+            opacity: 0.5;
         }
         
         .hero-overlay {
@@ -66,7 +71,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            background: linear-gradient(to right, rgba(26,26,26,0.9), rgba(26,26,26,0.5));
             z-index: -1;
         }
         
@@ -77,18 +82,20 @@
             font-weight: 600;
             border-radius: 50px;
             transition: all 0.3s;
+            color: white;
         }
         
         .btn-primary-custom:hover {
             background-color: var(--primary-dark);
             border-color: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+            color: white;
         }
         
         .btn-outline-custom {
-            border: 2px solid white;
-            color: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
             padding: 10px 26px;
             font-weight: 600;
             border-radius: 50px;
@@ -96,10 +103,10 @@
         }
         
         .btn-outline-custom:hover {
-            background-color: white;
-            color: var(--dark);
+            background-color: var(--primary);
+            color: white;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
         }
         
         .feature-icon {
@@ -109,7 +116,16 @@
         }
         
         .section {
-            padding: 80px 0;
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-dark {
+            background-color: var(--dark);
+        }
+        
+        .section-light {
+            background-color: #2C3E50;
         }
         
         .section-title {
@@ -131,9 +147,11 @@
         .testimonial-card {
             border-radius: 10px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             height: 100%;
             transition: transform 0.3s;
+            background-color: #2C3E50;
+            border-top: 4px solid var(--primary);
         }
         
         .testimonial-card:hover {
@@ -172,8 +190,9 @@
         
         .app-screenshot {
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: transform 0.3s;
+            border: 2px solid var(--primary);
         }
         
         .app-screenshot:hover {
@@ -182,27 +201,57 @@
         
         .navbar {
             transition: all 0.3s;
-            padding: 15px 0;
+            padding: 20px 0;
+            background-color: var(--dark);
         }
         
         .navbar.scrolled {
-            background-color: white !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: var(--dark) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             padding: 10px 0;
+            border-bottom: 1px solid var(--primary);
         }
         
         .navbar.scrolled .nav-link {
-            color: var(--dark) !important;
+            color: var(--text-light) !important;
         }
         
         .navbar.scrolled .navbar-brand {
             color: var(--primary) !important;
         }
         
+        .nav-link {
+            color: var(--text-light);
+            font-weight: 600;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
         .footer {
             background-color: var(--dark);
             color: white;
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--primary);
         }
         
         .footer-links a {
@@ -212,7 +261,7 @@
         }
         
         .footer-links a:hover {
-            color: white;
+            color: var(--primary);
         }
         
         .social-icon {
@@ -233,15 +282,54 @@
             transform: translateY(-3px);
         }
         
+        .form-control {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255,255,255,0.2);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* Lion mascot styling */
+        .lion-mascot {
+            position: absolute;
+            right: 50px;
+            bottom: -50px;
+            width: 200px;
+            z-index: 10;
+            opacity: 0.9;
+        }
+        
+        /* Mobile text reveal animation */
         @media (max-width: 768px) {
+            .mobile-reveal {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.6s ease-out;
+            }
+            
+            .mobile-reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
             .hero-section {
                 height: auto;
                 min-height: auto;
-                padding: 120px 0 80px;
+                padding: 150px 0 80px;
             }
             
             .section {
-                padding: 60px 0;
+                padding: 70px 0;
             }
             
             .how-it-works-step {
@@ -254,56 +342,153 @@
                 top: 0;
                 transform: translateX(-50%);
             }
+            
+            .lion-mascot {
+                width: 120px;
+                right: 20px;
+                bottom: -30px;
+            }
+        }
+        
+        /* Login/Signup Modal */
+        .modal-content {
+            background-color: #2C3E50;
+            color: white;
+            border: 1px solid var(--primary);
+        }
+        
+        .close {
+            color: white;
+            opacity: 1;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            margin: 20px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .divider::before {
+            margin-right: .25em;
+        }
+        
+        .divider::after {
+            margin-left: .25em;
+        }
+        
+        /* Blog card */
+        .blog-card {
+            background-color: #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            height: 100%;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-card .card-body {
+            padding: 20px;
+        }
+        
+        .blog-card .card-title {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .blog-date {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Progress bars */
+        .progress {
+            height: 10px;
+            background-color: rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            background-color: var(--primary);
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-3" href="#">
-                <i class="fas fa-dumbbell me-2"></i>GymStakes
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-fire me-2" style="color: var(--primary);"></i>GymStackes
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: var(--primary);"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#features">Funcionalidades</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#how-it-works">Como Funciona</a>
+                        <a class="nav-link" href="#about">Sobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#testimonials">Depoimentos</a>
+                        <a class="nav-link" href="#blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#screenshots">App</a>
+                        <a class="nav-link" href="#progress">Progresso</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="/blog">Blog</a>
+                        <a class="nav-link" href="#community">Comunidade</a>
                     </li>
                     <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a class="btn btn-primary-custom" href="#download">Baixar App</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-outline-custom" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section class="hero-section">
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
         <video autoplay muted loop playsinline class="hero-video">
             <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-training-in-the-gym-22900-large.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-7 text-white" data-aos="fade-up">
-                    <h1 class="display-4 fw-bold mb-4">Transforme seus treinos em desafios emocionantes</h1>
-                    <p class="lead mb-5">Conecte-se com amigos, crie desafios fitness e ganhe recompensas por manter a consistência nos seus treinos.</p>
+                <div class="col-lg-7 text-white mobile-reveal">
+                    <h1 class="display-4 fw-bold mb-4">Transforme seus treinos em desafios vitoriosos</h1>
+                    <p class="lead mb-5">Com o GymStackes, cada treino é uma batalha, cada vitória é uma conquista. Junte-se à revolução fitness onde consistência é recompensada.</p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#download" class="btn btn-primary-custom">Comece Agora</a>
-                        <a href="#how-it-works" class="btn btn-outline-custom">Saiba Mais</a>
+                        <a href="#download" class="btn btn-primary-custom">Baixar App</a>
+                        <a href="#" class="btn btn-outline-custom" data-bs-toggle="modal" data-bs-target="#betaForm">Quero testar primeiro</a>
                     </div>
                 </div>
                 <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left">
@@ -311,122 +496,254 @@
                 </div>
             </div>
         </div>
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" alt="Leão mascote" class="lion-mascot d-none d-lg-block">
     </section>
 
-    <section id="features" class="section bg-light">
+    <!-- About Section -->
+    <section id="about" class="section section-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h2 class="section-title text-start">Sobre o GymStackes</h2>
+                    <p class="lead mb-4">O GymStackes nasceu da necessidade de trazer motivação real para os treinos diários. Sabemos que manter a consistência é o maior desafio, e é aí que entramos.</p>
+                    <p>Nossa plataforma transforma a rotina de exercícios em um jogo competitivo e recompensador, onde você pode desafiar amigos, acompanhar seu progresso e ser premiado por sua dedicação.</p>
+                    <p>Não se trata apenas de fitness, mas de construir hábitos duradouros através de uma comunidade engajada e um sistema que reconhece seu esforço.</p>
+                    <a href="#how-it-works" class="btn btn-primary-custom mt-3">Como Funciona</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-4 bg-dark rounded-3 h-100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h3>Missão</h3>
+                                <p>Transformar a vida das pessoas através da gamificação do fitness, tornando os treinos mais divertidos e recompensadores.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-dark rounded-3 h-100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3>Visão</h3>
+                                <p>Ser a principal plataforma de desafios fitness do mundo, com milhões de usuários transformando suas vidas diariamente.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-dark rounded-3 h-100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3>Valores</h3>
+                                <p>Comunidade, Superação, Diversão e Recompensa. Acreditamos que juntos somos mais fortes.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-dark rounded-3 h-100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <h3>Compromisso</h3>
+                                <p>Seu progresso e dados estão seguros conosco. Utilizamos criptografia de ponta a ponta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-dark">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title">O que torna o GymStakes único</h2>
-                <p class="lead">Descubra como nossa plataforma pode transformar sua rotina fitness</p>
+                <h2 class="section-title">O que torna o GymStackes único</h2>
+                <p class="lead">Recursos projetados para manter você motivado e em movimento</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3" data-aos="fade-up">
-                    <div class="text-center p-4 h-100">
+                    <div class="text-center p-4 h-100 bg-gradient rounded-3">
                         <div class="feature-icon">
                             <i class="fas fa-trophy"></i>
                         </div>
-                        <h3>Desafios com Recompensas</h3>
-                        <p>Crie grupos de desafio com amigos e apostem em fichas virtuais para motivar a consistência nos treinos.</p>
+                        <h3>Desafios Personalizados</h3>
+                        <p>Crie desafios com regras específicas para seu grupo, escolhendo entre diversas modalidades e durações.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center p-4 h-100">
+                    <div class="text-center p-4 h-100 bg-gradient rounded-3">
                         <div class="feature-icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <h3>Comunidade Fitness</h3>
-                        <p>Conecte-se com pessoas que compartilham seus objetivos e mantenham-se motivados juntos.</p>
+                        <h3>Comunidade Ativa</h3>
+                        <p>Conecte-se com pessoas compartilhando a mesma jornada fitness que você.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-center p-4 h-100">
+                    <div class="text-center p-4 h-100 bg-gradient rounded-3">
                         <div class="feature-icon">
                             <i class="fas fa-camera"></i>
                         </div>
-                        <h3>Check-in Verificado</h3>
-                        <p>Registre seus treinos com fotos com data e hora verificadas para comprovar sua participação.</p>
+                        <h3>Verificação de Treinos</h3>
+                        <p>Sistema inteligente que valida seus check-ins para garantir justiça em todos os desafios.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-center p-4 h-100">
+                    <div class="text-center p-4 h-100 bg-gradient rounded-3">
                         <div class="feature-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h3>Progresso Visual</h3>
-                        <p>Acompanhe seu progresso e compare com seus amigos em rankings motivadores.</p>
+                        <h3>Progresso Detalhado</h3>
+                        <p>Estatísticas completas e gráficos para acompanhar sua evolução ao longo do tempo.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section id="how-it-works" class="section">
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section section-light">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">Como funciona</h2>
-                <p class="lead">Simples, divertido e motivador em apenas 5 passos</p>
+                <p class="lead">Simples, divertido e motivador em apenas 4 passos</p>
             </div>
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-10 mx-auto">
                     <div class="how-it-works-step" data-aos="fade-right">
                         <div class="step-number">1</div>
-                        <h3>Crie ou Junte-se a um Desafio</h3>
-                        <p>Forme um grupo com amigos ou participe de desafios abertos na comunidade. Escolha entre diversos tipos de desafios como frequência, intensidade ou objetivos específicos.</p>
+                        <h3>Baixe o App e Crie seu Perfil</h3>
+                        <p>Disponível para iOS e Android. Configure seu perfil com foto, objetivos e nível de fitness. Conecte-se com amigos ou deixe-nos sugerir desafios adequados para você.</p>
                     </div>
                     <div class="how-it-works-step" data-aos="fade-right" data-aos-delay="100">
                         <div class="step-number">2</div>
-                        <h3>Defina as Regras</h3>
-                        <p>Escolha a duração, tipo de exercício e valor das fichas virtuais para o desafio. Você pode personalizar totalmente as regras para atender às necessidades do seu grupo.</p>
+                        <h3>Escolha seu Desafio</h3>
+                        <p>Selecione entre desafios pré-definidos ou crie o seu próprio. Defina duração, tipo de exercício, grupo de participantes e regras específicas. Você pode participar de múltiplos desafios simultaneamente.</p>
                     </div>
                     <div class="how-it-works-step" data-aos="fade-right" data-aos-delay="200">
                         <div class="step-number">3</div>
-                        <h3>Adquira Fichas Virtuais</h3>
-                        <p>Compre fichas virtuais (não é dinheiro real) para participar dos desafios. As fichas são usadas apenas dentro da plataforma como forma de motivação.</p>
+                        <h3>Registre seus Treinos</h3>
+                        <p>Use nosso sistema de check-in com foto e geolocalização para registrar cada treino. O app valida automaticamente sua participação. Complete os requisitos do desafio dentro do prazo estabelecido.</p>
                     </div>
                     <div class="how-it-works-step" data-aos="fade-right" data-aos-delay="300">
                         <div class="step-number">4</div>
-                        <h3>Registre seus Treinos</h3>
-                        <p>Poste fotos dos seus treinos com data/hora verificada para marcar presença. Nosso sistema de verificação garante a autenticidade de cada check-in.</p>
+                        <h3>Ganhe Reconhecimento</h3>
+                        <p>Ao completar o desafio, receba suas recompensas virtuais, badges de conquista e melhore seu ranking na comunidade. Desbloqueie desafios mais difíceis e prêmios exclusivos.</p>
                     </div>
-                    <div class="how-it-works-step" data-aos="fade-right" data-aos-delay="400">
-                        <div class="step-number">5</div>
-                        <h3>Ganhe Recompensas</h3>
-                        <p>Ao final, os mais consistentes dividem as fichas ou trocam por prêmios. Você pode usar suas fichas para desbloquear benefícios ou participar de desafios maiores.</p>
-                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <div class="bg-dark p-4 rounded-3 d-inline-block">
+                    <h4 class="text-primary">Queres ser um dos primeiros a testar o GymStackes?</h4>
+                    <p class="mb-3">Ajude-nos a construir o melhor app de desafios fitness!</p>
+                    <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#betaForm">Quero Participar</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-primary text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0"><strong>Importante:</strong> O GymStakes não é uma casa de apostas. Utilizamos um sistema de fichas virtuais sem valor monetário real, conforme as regulamentações europeias. As fichas são adquiridas como produto digital e podem ser trocadas por recompensas dentro do ecossistema do aplicativo.</p>
-        </div>
-    </section>
-    <section id="screenshots" class="section bg-light">
+    <!-- Blog Section -->
+    <section id="blog" class="section section-dark">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title">Conheça o App</h2>
-                <p class="lead">Interface intuitiva e cheia de recursos para sua jornada fitness</p>
+                <h2 class="section-title">Últimas do Blog</h2>
+                <p class="lead">Dicas fitness, histórias inspiradoras e novidades do GymStackes</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-4" data-aos="zoom-in">
-                    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tela do app - Desafios" class="img-fluid app-screenshot">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Blog Post">
+                        <div class="card-body">
+                            <span class="blog-date">15 Junho, 2025</span>
+                            <h5 class="card-title mt-2">Como Manter a Motivação nos Treinos</h5>
+                            <p class="card-text">Descubra estratégias comprovadas para manter a consistência nos seus treinos, mesmo nos dias mais difíceis.</p>
+                            <a href="#" class="btn btn-sm btn-outline-custom">Ler Mais</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tela do app - Check-in" class="img-fluid app-screenshot">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Blog Post">
+                        <div class="card-body">
+                            <span class="blog-date">8 Junho, 2025</span>
+                            <h5 class="card-title mt-2">Os Benefícios dos Desafios em Grupo</h5>
+                            <p class="card-text">Por que treinar em grupo pode aumentar em até 70% suas chances de atingir seus objetivos fitness.</p>
+                            <a href="#" class="btn btn-sm btn-outline-custom">Ler Mais</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tela do app - Ranking" class="img-fluid app-screenshot">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Blog Post">
+                        <div class="card-body">
+                            <span class="blog-date">1 Junho, 2025</span>
+                            <h5 class="card-title mt-2">Novidades na Versão 2.0</h5>
+                            <p class="card-text">Conheça todas as melhorias e novos recursos que estamos trazendo para revolucionar sua experiência.</p>
+                            <a href="#" class="btn btn-sm btn-outline-custom">Ler Mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-primary-custom">Ver Todos os Artigos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="section section-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h2 class="section-title text-start">Acompanhe seu Progresso</h2>
+                    <p class="lead mb-4">No GymStackes, cada treino conta. Visualize sua evolução e compare com seus amigos.</p>
+                    
+                    <div class="mb-4">
+                        <div class="progress-label">
+                            <span>Consistência Mensal</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="progress-label">
+                            <span>Desafios Completos</span>
+                            <span>12/15</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="progress-label">
+                            <span>Nível na Comunidade</span>
+                            <span>Leão Prateado</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-primary-custom mt-3">Ver Estatísticas Completas</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Progresso" class="img-fluid rounded-3 shadow-lg">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="testimonials" class="section">
+    <!-- Community Section -->
+    <section id="community" class="section section-dark">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title">O que nossos usuários dizem</h2>
-                <p class="lead">Veja como o GymStakes está transformando vidas</p>
+                <h2 class="section-title">Nossa Comunidade</h2>
+                <p class="lead">Várias pessoas já transformaram seus treinos com o GymStackes</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4" data-aos="fade-up">
@@ -438,12 +755,12 @@
                             <i class="fas fa-star text-warning"></i>
                             <i class="fas fa-star text-warning"></i>
                         </div>
-                        <p class="mb-4">"Graças aos desafios do GymStakes, finalmente mantive a consistência nos treinos por 3 meses seguidos! Nunca me senti tão motivado."</p>
+                        <p class="mb-4">"Em 3 meses com o GymStackes alcancei resultados que não consegui em 2 anos de academia sozinho. A competição saudável com meus amigos foi o que faltava!"</p>
                         <div class="d-flex align-items-center">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="João Silva" class="user-avatar me-3">
                             <div>
                                 <h5 class="mb-0">João Silva</h5>
-                                <small class="text-muted">Lisboa, Portugal</small>
+                                <small class="text-muted">6 desafios completos</small>
                             </div>
                         </div>
                     </div>
@@ -457,12 +774,12 @@
                             <i class="fas fa-star text-warning"></i>
                             <i class="fas fa-star text-warning"></i>
                         </div>
-                        <p class="mb-4">"A competição saudável com meus amigos me motivou a nunca faltar um dia de treino. Já perdi 8kg desde que comecei!"</p>
+                        <p class="mb-4">"Conheci pessoas incríveis na comunidade do GymStackes. Agora temos um grupo que se motiva mutuamente e até marcamos treinos juntos!"</p>
                         <div class="d-flex align-items-center">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana Santos" class="user-avatar me-3">
                             <div>
                                 <h5 class="mb-0">Ana Santos</h5>
-                                <small class="text-muted">Porto, Portugal</small>
+                                <small class="text-muted">Top 5% da comunidade</small>
                             </div>
                         </div>
                     </div>
@@ -476,21 +793,26 @@
                             <i class="fas fa-star text-warning"></i>
                             <i class="fas fa-star-half-alt text-warning"></i>
                         </div>
-                        <p class="mb-4">"Conheci pessoas incríveis na comunidade do GymStakes. Agora tenho uma rede de apoio que me motiva todos os dias."</p>
+                        <p class="mb-4">"Como personal trainer, recomendo o GymStackes para todos meus clientes. Os resultados são visíveis em muito menos tempo quando eles participam dos desafios."</p>
                         <div class="d-flex align-items-center">
                             <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Carlos Mendes" class="user-avatar me-3">
                             <div>
                                 <h5 class="mb-0">Carlos Mendes</h5>
-                                <small class="text-muted">Madrid, Espanha</small>
+                                <small class="text-muted">Personal Trainer</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-primary-custom me-3">Ver Mais Depoimentos</a>
+                <a href="#" class="btn btn-outline-custom">Participar da Comunidade</a>
+            </div>
         </div>
     </section>
 
-    <section id="download" class="section bg-primary text-white">
+    <!-- Download Section -->
+    <section id="download" class="section section-light">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
@@ -504,20 +826,26 @@
                             <i class="fab fa-google-play me-2"></i> Google Play
                         </a>
                     </div>
+                    <div class="mt-5">
+                        <h4>Quer testar antes?</h4>
+                        <p>Cadastre-se para ser um dos primeiros a experimentar o GymStackes e nos ajudar a melhorar o app.</p>
+                        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#betaForm">Quero Participar do Beta</button>
+                    </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Celular com o app GymStakes" class="img-fluid rounded-3 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Celular com o app GymStackes" class="img-fluid rounded-3 shadow-lg">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4">
                     <h3 class="text-white mb-4">
-                        <i class="fas fa-dumbbell me-2"></i>GymStakes
+                        <i class="fas fa-fire me-2" style="color: var(--primary);"></i>GymStackes
                     </h3>
                     <p>Transformando treinos em desafios emocionantes. Nossa missão é motivar pessoas a alcançarem seus objetivos fitness de forma divertida e recompensadora.</p>
                     <div class="mt-4">
@@ -530,61 +858,208 @@
                 <div class="col-md-4 col-lg-2">
                     <h4 class="text-white mb-4">Links</h4>
                     <ul class="list-unstyled footer-links">
-                        <li class="mb-2"><a href="/about">Sobre Nós</a></li>
-                        <li class="mb-2"><a href="/blog">Blog Fitness</a></li>
-                        <li class="mb-2"><a href="/careers">Trabalhe Conosco</a></li>
-                        <li class="mb-2"><a href="/partners">Seja um Parceiro</a></li>
+                        <li class="mb-2"><a href="#about">Sobre Nós</a></li>
+                        <li class="mb-2"><a href="#blog">Blog Fitness</a></li>
+                        <li class="mb-2"><a href="#progress">Seu Progresso</a></li>
+                        <li class="mb-2"><a href="#community">Comunidade</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-lg-2">
                     <h4 class="text-white mb-4">Legal</h4>
                     <ul class="list-unstyled footer-links">
-                        <li class="mb-2"><a href="/terms">Termos de Serviço</a></li>
-                        <li class="mb-2"><a href="/privacy">Política de Privacidade</a></li>
-                        <li class="mb-2"><a href="/responsible-gaming">Jogo Responsável</a></li>
-                        <li class="mb-2"><a href="/cookies">Política de Cookies</a></li>
+                        <li class="mb-2"><a href="#">Termos de Serviço</a></li>
+                        <li class="mb-2"><a href="#">Política de Privacidade</a></li>
+                        <li class="mb-2"><a href="#">Jogo Responsável</a></li>
+                        <li class="mb-2"><a href="#">Cookies</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <h4 class="text-white mb-4">Newsletter</h4>
-                    <p>Inscreva-se para receber dicas fitness e novidades sobre o app.</p>
-                    <form class="mt-3">
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Seu e-mail">
-                            <button class="btn btn-primary" type="submit">Inscrever</button>
-                        </div>
-                    </form>
+                    <h4 class="text-white mb-4">Contato</h4>
+                    <p>Tem dúvidas ou sugestões? Fale com nossa equipe.</p>
+                    <div class="mt-3">
+                        <p class="mb-2"><i class="fas fa-envelope me-2"></i> contato@gymstackes.com</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> São Paulo, Brasil</p>
+                    </div>
                     <div class="mt-4">
-                        <h5 class="text-white mb-2">Contato</h5>
-                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> suporte@gymstakes.com</p>
-                        <p><i class="fas fa-map-marker-alt me-2"></i> Leiria, Portugal</p>
+                        <h5 class="text-white mb-2">Newsletter</h5>
+                        <form>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Seu e-mail">
+                                <button class="btn btn-primary" type="submit">Assinar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0">© 2025 GymStakes. Todos os direitos reservados.</p>
+                    <p class="mb-0">© 2025 GymStackes. Todos os direitos reservados.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">Registrado na União Europeia. Não é um serviço de apostas.</p>
+                    <p class="mb-0">Feito com <i class="fas fa-heart text-danger"></i> para amantes de fitness</p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="loginModalLabel">Acesse sua conta</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="seu@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="••••••••">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Lembrar de mim</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">Entrar</button>
+                    </form>
+                    <div class="divider">ou</div>
+                    <button class="btn btn-outline-custom w-100 mb-3">
+                        <i class="fab fa-google me-2"></i> Continuar com Google
+                    </button>
+                    <button class="btn btn-outline-custom w-100">
+                        <i class="fab fa-apple me-2"></i> Continuar com Apple
+                    </button>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-primary">Esqueceu sua senha?</a>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <p class="mb-0">Não tem uma conta? <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Cadastre-se</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="signupModalLabel">Crie sua conta</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="signupName" placeholder="Seu nome">
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="signupEmail" placeholder="seu@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="signupPassword" placeholder="••••••••">
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupConfirmPassword" class="form-label">Confirme sua Senha</label>
+                            <input type="password" class="form-control" id="signupConfirmPassword" placeholder="••••••••">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="acceptTerms">
+                            <label class="form-check-label" for="acceptTerms">Eu concordo com os <a href="#" class="text-primary">Termos de Serviço</a> e <a href="#" class="text-primary">Política de Privacidade</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">Cadastrar</button>
+                    </form>
+                    <div class="divider">ou</div>
+                    <button class="btn btn-outline-custom w-100 mb-3">
+                        <i class="fab fa-google me-2"></i> Continuar com Google
+                    </button>
+                    <button class="btn btn-outline-custom w-100">
+                        <i class="fab fa-apple me-2"></i> Continuar com Apple
+                    </button>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <p class="mb-0">Já tem uma conta? <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Faça login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Beta Test Form Modal -->
+    <div class="modal fade" id="betaForm" tabindex="-1" aria-labelledby="betaFormLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="betaFormLabel">Quero testar o GymStackes primeiro!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-4">Estamos buscando entusiastas de fitness para nos ajudar a testar e melhorar o GymStackes antes do lançamento oficial. Sua opinião será valiosa para moldar o futuro do app!</p>
+                    
+                    <form>
+                        <div class="mb-3">
+                            <label for="betaName" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="betaName" placeholder="Seu nome completo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="betaEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="betaEmail" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="betaFitnessLevel" class="form-label">Nível de Atividade Física</label>
+                            <select class="form-select" id="betaFitnessLevel" required>
+                                <option value="" selected disabled>Selecione...</option>
+                                <option value="beginner">Iniciante</option>
+                                <option value="intermediate">Intermediário</option>
+                                <option value="advanced">Avançado</option>
+                                <option value="athlete">Atleta</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="betaGoals" class="form-label">Quais seus principais objetivos fitness?</label>
+                            <textarea class="form-control" id="betaGoals" rows="2" placeholder="Perda de peso, ganho de massa muscular, condicionamento, etc." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="betaFeedback" class="form-label">O que você espera de um app como o GymStackes?</label>
+                            <textarea class="form-control" id="betaFeedback" rows="2" placeholder="Sua opinião é importante para nós"></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="betaUpdates" checked>
+                            <label class="form-check-label" for="betaUpdates">Quero receber atualizações sobre o desenvolvimento do app</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">Enviar meu Interesse</button>
+                    </form>
+                    
+                    <div class="alert alert-dark mt-3">
+                        <small><i class="fas fa-info-circle me-2"></i> Ao se inscrever, você concorda em participar do programa de testes beta e fornecer feedback sobre sua experiência. Não há compensação financeira, mas seus insights nos ajudarão a criar um produto melhor para todos.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        
+        // Initialize AOS animation
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
             once: true
         });
         
+        // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
@@ -594,6 +1069,7 @@
             }
         });
         
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -607,6 +1083,7 @@
                         behavior: 'smooth'
                     });
                     
+                    // Close mobile menu after clicking
                     const navbarToggler = document.querySelector('.navbar-toggler');
                     const navbarCollapse = document.querySelector('.navbar-collapse');
                     if (navbarCollapse.classList.contains('show')) {
@@ -616,6 +1093,24 @@
             });
         });
         
+        // Mobile text reveal animation
+        function checkMobileReveal() {
+            const elements = document.querySelectorAll('.mobile-reveal');
+            elements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        
+        // Run on load and scroll
+        window.addEventListener('load', checkMobileReveal);
+        window.addEventListener('scroll', checkMobileReveal);
+        
+        // Video fallback for mobile
         function isMobile() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
@@ -628,6 +1123,23 @@
                 document.querySelector('.hero-section').style.backgroundSize = 'cover';
                 document.querySelector('.hero-section').style.backgroundPosition = 'center';
             }
+        }
+        
+        // Modal transitions
+        $('#betaForm').on('show.bs.modal', function (e) {
+            // Animation when beta form modal opens
+        });
+        
+        // Redirect to app if installed
+        function redirectToApp() {
+            // This would check if the app is installed and redirect
+            // For now it's just a placeholder
+            window.location.href = "gymstackes://home";
+            
+            // If app not installed, fallback to app store
+            setTimeout(function() {
+                window.location.href = "https://apps.apple.com/app/gymstackes";
+            }, 500);
         }
     </script>
 </body>

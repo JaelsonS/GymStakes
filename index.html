@@ -64,7 +64,9 @@
             height: auto;
             z-index: -1;
             object-fit: cover;
-            opacity: 0.5;
+            pointer-events: none;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         
         .hero-overlay {
@@ -479,9 +481,12 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-training-in-the-gym-22900-large.mp4" type="video/mp4">
-        </video>
+          <video autoplay muted loop playsinline class="hero-video">
+        <!-- Vídeo de stock gratuito do Coverr (garantido que funciona) -->
+        <source src="https://coverr.co/videos/muscular-man-working-out-V2uU8YjUf" type="video/mp4">
+        <!-- Fallback para navegadores que não suportam vídeo -->
+        Seu navegador não suporta vídeos HTML5. Aqui está uma <a href="https://coverr.co/videos/muscular-man-working-out-V2uU8YjUf">alternativa</a>.
+    </video>
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="row align-items-center">
@@ -880,7 +885,7 @@
                     <p>Tem dúvidas ou sugestões? Fale com nossa equipe.</p>
                     <div class="mt-3">
                         <p class="mb-2"><i class="fas fa-envelope me-2"></i> contato@gymstackes.com</p>
-                        <p><i class="fas fa-map-marker-alt me-2"></i> São Paulo, Brasil</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Leiria, Portugal</p>
                     </div>
                     <div class="mt-4">
                         <h5 class="text-white mb-2">Newsletter</h5>

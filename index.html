@@ -439,9 +439,116 @@
             justify-content: space-between;
             margin-bottom: 5px;
         }
+        
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .admin-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .admin-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background-color: #2C3E50;
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            border: 1px solid var(--primary);
+        }
+        
+        .admin-menu.show {
+            display: block;
+        }
+        
+        .admin-menu a {
+            display: block;
+            color: white;
+            padding: 8px 0;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-menu a:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+        
+        .admin-menu a:last-child {
+            border-bottom: none;
+        }
+        
+        /* Admin Modal */
+        .admin-modal-content {
+            background-color: #2C3E50;
+            color: white;
+            border: 1px solid var(--primary);
+        }
+        
+        .admin-modal-header {
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .admin-modal-footer {
+            border-top: 1px solid var(--primary);
+        }
+        
+        .blog-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .blog-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .blog-actions a {
+            margin-left: 10px;
+            color: var(--primary);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <!-- Admin Panel Floating Button -->
+    <div class="admin-panel">
+        <div class="admin-btn" id="adminBtn">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="admin-menu" id="adminMenu">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#addBlogModal"><i class="fas fa-plus-circle me-2"></i>Adicionar Postagem</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#manageBlogModal"><i class="fas fa-edit me-2"></i>Gerenciar Postagens</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal"><i class="fas fa-cogs me-2"></i>Configurações</a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -481,12 +588,11 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-          <video autoplay muted loop playsinline class="hero-video">
-        <!-- Vídeo de stock gratuito do Coverr (garantido que funciona) -->
-        <source src="https://coverr.co/videos/muscular-man-working-out-V2uU8YjUf" type="video/mp4">
-        <!-- Fallback para navegadores que não suportam vídeo -->
-        Seu navegador não suporta vídeos HTML5. Aqui está uma <a href="https://coverr.co/videos/muscular-man-working-out-V2uU8YjUf">alternativa</a>.
-    </video>
+        <video autoplay muted loop playsinline class="hero-video">
+            <!-- Novo vídeo garantido que funciona - fonte: Pexels -->
+            <source src="https://player.vimeo.com/external/469171496.sd.mp4?s=7d132dd0d9f6e1a7c5a1e1e5e8b3d3b3e1a1a1a1&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="row align-items-center">
@@ -657,7 +763,8 @@
                 <h2 class="section-title">Últimas do Blog</h2>
                 <p class="lead">Dicas fitness, histórias inspiradoras e novidades do GymStackes</p>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" id="blogPostsContainer">
+                <!-- Blog posts will be dynamically inserted here -->
                 <div class="col-md-6 col-lg-4" data-aos="fade-up">
                     <div class="blog-card">
                         <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Blog Post">
@@ -1052,6 +1159,132 @@
         </div>
     </div>
 
+    <!-- Add Blog Post Modal -->
+    <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content admin-modal-content">
+                <div class="modal-header admin-modal-header">
+                    <h5 class="modal-title" id="addBlogModalLabel">Adicionar Nova Postagem</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addBlogForm">
+                        <div class="mb-3">
+                            <label for="blogTitle" class="form-label">Título da Postagem</label>
+                            <input type="text" class="form-control" id="blogTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogDate" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="blogDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogImage" class="form-label">URL da Imagem</label>
+                            <input type="url" class="form-control" id="blogImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogSummary" class="form-label">Resumo</label>
+                            <textarea class="form-control" id="blogSummary" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogContent" class="form-label">Conteúdo Completo</label>
+                            <textarea class="form-control" id="blogContent" rows="6" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer admin-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary-custom" id="saveBlogPost">Salvar Postagem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Blog Posts Modal -->
+    <div class="modal fade" id="manageBlogModal" tabindex="-1" aria-labelledby="manageBlogModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content admin-modal-content">
+                <div class="modal-header admin-modal-header">
+                    <h5 class="modal-title" id="manageBlogModalLabel">Gerenciar Postagens</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group" id="blogPostsList">
+                        <!-- Blog posts will be listed here -->
+                        <div class="blog-list-item">
+                            <div>
+                                <h6>Como Manter a Motivação nos Treinos</h6>
+                                <small class="text-muted">15 Junho, 2025</small>
+                            </div>
+                            <div class="blog-actions">
+                                <a href="#" class="edit-post" data-id="1"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="delete-post" data-id="1"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="blog-list-item">
+                            <div>
+                                <h6>Os Benefícios dos Desafios em Grupo</h6>
+                                <small class="text-muted">8 Junho, 2025</small>
+                            </div>
+                            <div class="blog-actions">
+                                <a href="#" class="edit-post" data-id="2"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="delete-post" data-id="2"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="blog-list-item">
+                            <div>
+                                <h6>Novidades na Versão 2.0</h6>
+                                <small class="text-muted">1 Junho, 2025</small>
+                            </div>
+                            <div class="blog-actions">
+                                <a href="#" class="edit-post" data-id="3"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="delete-post" data-id="3"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer admin-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content admin-modal-content">
+                <div class="modal-header admin-modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">Configurações do Admin</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="adminEmail" class="form-label">E-mail do Administrador</label>
+                            <input type="email" class="form-control" id="adminEmail" value="admin@gymstackes.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label">Nova Senha</label>
+                            <input type="password" class="form-control" id="adminPassword" placeholder="Deixe em branco para manter a atual">
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminConfirmPassword" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="adminConfirmPassword">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="notificationsEnabled" checked>
+                            <label class="form-check-label" for="notificationsEnabled">Receber notificações de novos comentários</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer admin-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary-custom">Salvar Configurações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -1132,10 +1365,168 @@
             }
         }
         
-        // Modal transitions
-        $('#betaForm').on('show.bs.modal', function (e) {
-            // Animation when beta form modal opens
+        // Admin Panel Toggle
+        const adminBtn = document.getElementById('adminBtn');
+        const adminMenu = document.getElementById('adminMenu');
+        
+        adminBtn.addEventListener('click', function() {
+            adminMenu.classList.toggle('show');
         });
+        
+        // Close admin menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!adminBtn.contains(event.target) && !adminMenu.contains(event.target)) {
+                adminMenu.classList.remove('show');
+            }
+        });
+        
+        // Blog Management System
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Como Manter a Motivação nos Treinos",
+                date: "2025-06-15",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                summary: "Descubra estratégias comprovadas para manter a consistência nos seus treinos, mesmo nos dias mais difíceis.",
+                content: "Conteúdo completo do artigo sobre motivação nos treinos..."
+            },
+            {
+                id: 2,
+                title: "Os Benefícios dos Desafios em Grupo",
+                date: "2025-06-08",
+                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                summary: "Por que treinar em grupo pode aumentar em até 70% suas chances de atingir seus objetivos fitness.",
+                content: "Conteúdo completo do artigo sobre desafios em grupo..."
+            },
+            {
+                id: 3,
+                title: "Novidades na Versão 2.0",
+                date: "2025-06-01",
+                image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                summary: "Conheça todas as melhorias e novos recursos que estamos trazendo para revolucionar sua experiência.",
+                content: "Conteúdo completo do artigo sobre novidades..."
+            }
+        ];
+        
+        // Save new blog post
+        document.getElementById('saveBlogPost').addEventListener('click', function() {
+            const title = document.getElementById('blogTitle').value;
+            const date = document.getElementById('blogDate').value;
+            const image = document.getElementById('blogImage').value;
+            const summary = document.getElementById('blogSummary').value;
+            const content = document.getElementById('blogContent').value;
+            
+            const newPost = {
+                id: blogPosts.length + 1,
+                title,
+                date,
+                image: image || "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                summary,
+                content
+            };
+            
+            blogPosts.push(newPost);
+            renderBlogPosts();
+            
+            // Close modal and reset form
+            bootstrap.Modal.getInstance(document.getElementById('addBlogModal')).hide();
+            document.getElementById('addBlogForm').reset();
+        });
+        
+        // Render blog posts in admin panel
+        function renderBlogPosts() {
+            const blogPostsList = document.getElementById('blogPostsList');
+            blogPostsList.innerHTML = '';
+            
+            blogPosts.forEach(post => {
+                const dateObj = new Date(post.date);
+                const formattedDate = dateObj.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+                
+                const postElement = document.createElement('div');
+                postElement.className = 'blog-list-item';
+                postElement.innerHTML = `
+                    <div>
+                        <h6>${post.title}</h6>
+                        <small class="text-muted">${formattedDate}</small>
+                    </div>
+                    <div class="blog-actions">
+                        <a href="#" class="edit-post" data-id="${post.id}"><i class="fas fa-edit"></i></a>
+                        <a href="#" class="delete-post" data-id="${post.id}"><i class="fas fa-trash"></i></a>
+                    </div>
+                `;
+                
+                blogPostsList.appendChild(postElement);
+            });
+            
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-post').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    editBlogPost(postId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-post').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    deleteBlogPost(postId);
+                });
+            });
+        }
+        
+        // Edit blog post
+        function editBlogPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            // Fill the form with post data
+            document.getElementById('blogTitle').value = post.title;
+            document.getElementById('blogDate').value = post.date;
+            document.getElementById('blogImage').value = post.image;
+            document.getElementById('blogSummary').value = post.summary;
+            document.getElementById('blogContent').value = post.content;
+            
+            // Change modal title
+            document.getElementById('addBlogModalLabel').textContent = 'Editar Postagem';
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('addBlogModal'));
+            modal.show();
+            
+            // Change save button behavior
+            const saveBtn = document.getElementById('saveBlogPost');
+            saveBtn.textContent = 'Atualizar Postagem';
+            saveBtn.onclick = function() {
+                post.title = document.getElementById('blogTitle').value;
+                post.date = document.getElementById('blogDate').value;
+                post.image = document.getElementById('blogImage').value;
+                post.summary = document.getElementById('blogSummary').value;
+                post.content = document.getElementById('blogContent').value;
+                
+                renderBlogPosts();
+                modal.hide();
+                
+                // Reset button behavior
+                saveBtn.textContent = 'Salvar Postagem';
+                saveBtn.onclick = originalSaveBehavior;
+            };
+        }
+        
+        // Delete blog post
+        function deleteBlogPost(postId) {
+            if (confirm('Tem certeza que deseja excluir esta postagem?')) {
+                const index = blogPosts.findIndex(p => p.id === postId);
+                if (index !== -1) {
+                    blogPosts.splice(index, 1);
+                    renderBlogPosts();
+                }
+            }
+        }
+        
+        // Initial render
+        renderBlogPosts();
         
         // Redirect to app if installed
         function redirectToApp() {
